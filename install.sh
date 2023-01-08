@@ -16,6 +16,9 @@ HOME=/home/pi
 OP=/etc/svxlink
 cd
 sudo curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+
 sudo apt update
 sudo apt upgrade -y
 VERSIONS=svxlink/src/versions
@@ -47,7 +50,8 @@ VERSIONS=svxlink/src/versions
 # Downloading Source Code for SVXLink
 	echo -e `date` "${YELLOW} downloading SVXLink source code … ${NORMAL}"
 	cd
-	sudo git clone https://github.com/sm0svx/svxlink.git
+#	sudo git clone https://github.com/sm0svx/svxlink.git
+	sudo git clone -b svxlink-usrp https://github.com/dl1hrc/svxlink.git
 	sudo mkdir svxlink/src/build
 
 	
@@ -107,9 +111,9 @@ VERSIONS=svxlink/src/versions
 	sudo sed -i "s/PTT_PORT=GPIO/PTT_PORT=\/dev\/hidraw0/g" $CONF
 	sudo sed -i "s/PTT_PIN=gpio24/HID_PTT_PIN=GPIO3/g" $CONF
 	sudo sed -i "s/\#MUTE/MUTE/g" /etc/svxlink/svxlink.d/ModuleEchoLink.conf
-	sudo sed -i "s/\#DEFAULT_LANG=en_US/DEFAULT_LANG=en_GB/g" /etc/svxlink/svxlink.d/ModuleEchoLink.conf
+	#sudo sed -i "s/\#DEFAULT_LANG=en_US/DEFAULT_LANG=en_GB/g" /etc/svxlink/svxlink.d/ModuleEchoLink.conf
 	sudo sed -i "s/\#MUTE/MUTE/g" /etc/svxlink/svxlink.d/ModuleMetarInfo.conf
-	sudo sed -i "s/\#DEFAULT_LANG=en_US/DEFAULT_LANG=en_GB/g" /etc/svxlink/svxlink.d/ModuleMetarInfo.conf	
+	#sudo sed -i "s/\#DEFAULT_LANG=en_US/DEFAULT_LANG=en_GB/g" /etc/svxlink/svxlink.d/ModuleMetarInfo.conf	
 
 	fi
 	echo `date` "${RED} Authorise GPIO setup service and svxlink service${NORMAL}"
